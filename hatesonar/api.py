@@ -19,10 +19,10 @@ class Sonar:
         assert isinstance(text, str)
 
         proba = self.pipeline.run(None, {"input": [text]})[1][0]
-
+       
         res = {
             "text": text,
-            "top_class": Sonar._map[np.argmax(proba)],
+            "top_class": Sonar._map[np.argmax(np.fromiter(proba.values(), dtype=float))],
             "classes": [
                 {"class_name": Sonar._map[k], "confidence": proba[k]}
                 for k in sorted(Sonar._map)
